@@ -1,0 +1,12 @@
+# Render Cloud Service Specification Blueprint
+services:
+  - type: web
+    name: hybrid-ai-recommender
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT "src.api.app:create_app()"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.5
+      - key: PORT
+        value: 5000

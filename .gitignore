@@ -1,0 +1,18 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment & Secrets
+.env
+.venv/
+venv/
+ENV/
+.idea/
+.vscode/
+.pytest_cache/
+*.log
+
+# Operating System Files
+.DS_Store
+Thumbs.db

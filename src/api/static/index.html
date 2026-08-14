@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybrid AI E-Commerce Recommender</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Background Animated Gradient Orbs -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <div class="app-container">
+        <!-- Top Navigation Header -->
+        <header class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-brain logo-icon"></i>
+                <div class="logo-text">
+                    <span class="brand-title">AURA</span>
+                    <span class="brand-subtitle">Hybrid AI Recommender</span>
+                </div>
+            </div>
+
+            <!-- Demo User Selector -->
+            <div class="user-selector-container">
+                <label for="userSelect"><i class="fa-solid fa-user-gear"></i> Active User Profile:</label>
+                <select id="userSelect" class="user-dropdown">
+                    <option value="USER_001">USER_001 (Tech & Electronics Enthusiast)</option>
+                    <option value="USER_002">USER_002 (Apparel & Fashion Shopper)</option>
+                    <option value="USER_UNKNOWN_999">NEW_COLD_START_USER (Anonymous New User)</option>
+                </select>
+            </div>
+
+            <!-- Health Status Pill -->
+            <div id="healthBadge" class="health-badge">
+                <span class="status-dot green"></span> System Online
+            </div>
+        </header>
+
+        <!-- Hero & Natural Language Search Section -->
+        <section class="hero-section">
+            <h1 class="hero-title">Discover Products with <span class="gradient-text">Explainable AI</span></h1>
+            <p class="hero-subtitle">Multi-Modal Fusion combining Content Matching, Collaborative Taste, SentenceTransformers NLP, and ResNet50 CNN Vision.</p>
+
+            <div class="search-box-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Try natural search e.g. 'comfortable wireless headphones for gaming'...">
+                <button id="searchBtn" class="search-btn"><i class="fa-solid fa-sparkles"></i> AI Search</button>
+            </div>
+
+            <!-- Sample Query Pills -->
+            <div class="query-pills">
+                <span class="pill-label">Try asking:</span>
+                <button class="sample-pill" data-query="comfortable wireless headphones for gaming">🎧 Wireless Headphones</button>
+                <button class="sample-pill" data-query="stylish denim jacket for winter">🧥 Denim Jacket</button>
+                <button class="sample-pill" data-query="smart fitness watch with heart monitor">⌚ Smart Watch</button>
+                <button class="sample-pill" data-query="ergonomic mechanical keyboard">⌨️ Mechanical Keyboard</button>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <main class="main-layout">
+            <!-- Category Filter Tabs -->
+            <div class="category-tabs">
+                <button class="tab-btn active" data-category="all"><i class="fa-solid fa-border-all"></i> All Products</button>
+                <button class="tab-btn" data-category="Electronics"><i class="fa-solid fa-laptop"></i> Electronics</button>
+                <button class="tab-btn" data-category="Apparel"><i class="fa-solid fa-shirt"></i> Apparel</button>
+                <button class="tab-btn" data-category="Home & Kitchen"><i class="fa-solid fa-couch"></i> Home & Kitchen</button>
+                <button class="tab-btn" data-category="Books"><i class="fa-solid fa-book"></i> Books</button>
+                <button class="tab-btn" data-category="Beauty"><i class="fa-solid fa-wand-magic-sparkles"></i> Beauty</button>
+            </div>
+
+            <!-- Section Title & Results Counter -->
+            <div class="section-header">
+                <h2 id="sectionTitle"><i class="fa-solid fa-store"></i> Product Catalog</h2>
+                <span id="resultsCount" class="results-count">140 Products</span>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="spinner-wrapper hidden">
+                <div class="spinner"></div>
+                <p>Computing Vector Embeddings & Scoring Hybrid Signals...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorMessage" class="error-container hidden">
+                <i class="fa-solid fa-circle-exclamation error-icon"></i>
+                <p id="errorText">Unable to connect to Flask API server.</p>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="productGrid" class="product-grid">
+                <!-- Product Cards Rendered via JS -->
+            </div>
+
+            <!-- Pagination Container -->
+            <div id="pagination" class="pagination-container">
+                <!-- Pagination buttons rendered via JS -->
+            </div>
+        </main>
+
+        <!-- Product Details & Recommendations Modal -->
+        <div id="productModal" class="modal-overlay hidden">
+            <div class="modal-card">
+                <button id="closeModalBtn" class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+                
+                <div class="modal-body">
+                    <!-- Product Details Column -->
+                    <div class="modal-product-view">
+                        <img id="modalProductImage" src="" alt="Product Image" class="modal-img">
+                        <div class="modal-info">
+                            <span id="modalProductCategory" class="category-badge">Category</span>
+                            <h2 id="modalProductName" class="modal-title">Product Name</h2>
+                            <div class="modal-meta">
+                                <span id="modalProductPrice" class="modal-price">$0.00</span>
+                                <span id="modalProductRating" class="modal-rating"><i class="fa-solid fa-star"></i> 4.5</span>
+                            </div>
+                            <p id="modalProductDesc" class="modal-desc">Product description text...</p>
+                            <span id="modalProductId" class="modal-id-tag">ID: PROD_0000</span>
+                        </div>
+                    </div>
+
+                    <hr class="modal-divider">
+
+                    <!-- Hybrid Recommendations Section -->
+                    <div class="modal-recs-section">
+                        <h3><i class="fa-solid fa-diagram-project"></i> Hybrid Recommendations for You</h3>
+                        <p class="section-subtext">Combining Content Similarity, Collaborative Taste, NLP Embeddings, and Visual Features.</p>
+                        
+                        <div id="modalRecsList" class="recs-list">
+                            <!-- Hybrid Recommendation Items with XAI breakdown rendered via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Hybrid AI-Driven E-Commerce Recommendation System &bull; Built with PyTorch, SentenceTransformers, ResNet50, Scikit-Learn & Flask</p>
+        </footer>
+    </div>
+
+    <!-- Custom App JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>
