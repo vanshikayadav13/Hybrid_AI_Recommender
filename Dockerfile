@@ -20,12 +20,12 @@ COPY src/ ./src/
 COPY data/ ./data/
 COPY models/ ./models/
 
-# Expose Flask API port
+# Expose Flask API default port
 EXPOSE 5000
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV FLASK_ENV=production
 
-# Start application using Gunicorn production WSGI server
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "src.api.app:create_app()"]
+# Start application using Gunicorn listening on $PORT with 1 worker and 2 threads
+CMD ["sh", "-c", "exec gunicorn --bind 0.0.0.0:${PORT:-5000} --workers 1 --threads 2 --timeout 120 'src.api.app:create_app()'"]

@@ -18,6 +18,12 @@ logger = get_logger(__name__)
 
 def create_app() -> Flask:
     """Application factory for Flask REST API."""
+    try:
+        import torch
+        torch.set_num_threads(1)
+    except Exception:
+        pass
+
     static_folder = Path(__file__).parent / "static"
     app = Flask(__name__, static_folder=str(static_folder), static_url_path="")
     CORS(app)
